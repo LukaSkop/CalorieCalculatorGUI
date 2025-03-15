@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 public class CalorieCalculatorGUI {
 
-    // Constants for BMR formula coefficients and activity multipliers
     private static final double MALE_BMR_CONSTANT = 88.362;
     private static final double FEMALE_BMR_CONSTANT = 447.593;
     private static final double MALE_WEIGHT_COEFFICIENT = 13.397;
@@ -21,19 +20,19 @@ public class CalorieCalculatorGUI {
     private static final double ACTIVE_MULTIPLIER = 1.725;
 
     public static void main(String[] args) {
-        // Set a modern UI theme
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ignored) {}
 
-        // Create the main frame
+        //main frame
         JFrame frame = new JFrame("Calorie Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setLayout(new BorderLayout(10, 10));
         frame.getContentPane().setBackground(Color.WHITE);
 
-        // Create input panel
+        //input panel
         JPanel inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -61,7 +60,7 @@ public class CalorieCalculatorGUI {
 
         JButton calculateButton = new JButton("Calculate");
 
-        // Results Panel (Formatted output)
+        // Results Panel
         JPanel resultPanel = new JPanel();
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
         resultPanel.setBackground(new Color(240, 248, 255));
@@ -86,7 +85,7 @@ public class CalorieCalculatorGUI {
         resultPanel.add(calorieResult);
         resultPanel.setVisible(false); // Hidden until results are available
 
-        // Add input fields to panel
+
         inputPanel.add(genderLabel, gbc);
         gbc.gridx = 1;
         inputPanel.add(genderField, gbc);
@@ -120,11 +119,11 @@ public class CalorieCalculatorGUI {
         gbc.gridwidth = 2;
         inputPanel.add(calculateButton, gbc);
 
-        // Add components to frame
+
         frame.add(inputPanel, BorderLayout.CENTER);
         frame.add(resultPanel, BorderLayout.SOUTH);
 
-        // Button action listener
+
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -163,14 +162,14 @@ public class CalorieCalculatorGUI {
         frame.setVisible(true);
     }
 
-    // Method to calculate BMR
+    //calculate BMR
     public static double calculateBMR(String gender, double weight, double height, int age) {
         return gender.equals("M") ?
                 MALE_BMR_CONSTANT + (MALE_WEIGHT_COEFFICIENT * weight) + (MALE_HEIGHT_COEFFICIENT * height) - (MALE_AGE_COEFFICIENT * age) :
                 FEMALE_BMR_CONSTANT + (FEMALE_WEIGHT_COEFFICIENT * weight) + (FEMALE_HEIGHT_COEFFICIENT * height) - (FEMALE_AGE_COEFFICIENT * age);
     }
 
-    // Method to calculate daily calorie needs
+    //calculate daily calorie needs
     public static double calculateCalorieNeeds(double bmr, String activityLevel) {
         return switch (activityLevel) {
             case "sedentary" -> bmr * SEDENTARY_MULTIPLIER;
